@@ -1,0 +1,15 @@
+trajectory1 = [];
+fid = fopen('/home/lan/Desktop/zhaozhenjun/datat/00.txt');
+T1 = {};
+tline = fgetl(fid);
+while ischar(tline)
+    w = textscan(tline,'%f');
+    w = w{1,1}';
+    w = reshape(w, [4,3])';
+    w = [w;0,0,0,1];
+    T1{length(T1)+1} = w;
+    tline = fgetl(fid);
+end
+fclose(fid);
+figure(1)
+scatter3(trajectory1(:,1), trajectory1(:,2), trajectory1(:,3))
