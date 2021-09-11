@@ -1,0 +1,19 @@
+This folder contains scripts that generate voxel matrices from .obj files. This generation method is better than the binvox method (and also faster).
+
+The mat generation method (polygon2voxel* files) are from D.Kroon and JianXiong (see the code comment).
+The off loader is from ... (don't know, but not me...)
+The obj loader is from W.S. Harwin. (http://www.mathworks.com/matlabcentral/fileexchange/10223-loadawobj)
+
+The multithread skeleton is modified from obj2binvox, but it seems that in MATLAB, parfor does not implement load balancing. 
+
+===================================================================
+Usage: 
+Run "python find_and_split.py" to find all obj files in a directory (using system cmd find), split the files into multiple tasks and save absolute addresses in corresponding task files. When overwrite is set to False, the script will search for binvox files and remove all obj file paths with existing corresponding binvox files from task list. 
+
+Then run obj2mat_multithread in MATLAB to run mat conversion in multithread mode.
+
+Warning will be issued if empty voxels are found (e.g. vertices without faces) (yes, they exist in ShapeNet...), but the program will keep running. 
+
+Note that conversion from off to mat is a lot faster than obj to mat.
+
+NOTE that rotation and flipping are used during conversion, to align off files (in modelnet) and obj files (in shapenet). This align may NOT be suitable for objects in general, so please check for directions whenever this code is used :)
